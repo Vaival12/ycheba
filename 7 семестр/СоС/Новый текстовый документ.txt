@@ -1,0 +1,1081 @@
+openapi: 3.0.3
+info:
+  title: TechSolutions Inc
+  description: "Разработано приложение TechSolutions Inc, которое занимается
+разработкой технологических решений, на языке Java. Для хранения данных
+использовано СУБД PostgreSQL. Доступ к данным осуществляется с
+помощью Spring JPA. Для управление данными используется WebUI на
+Vaadin. В приложении должны храниться атрибуты сотрудника, атрибуты
+отдела, атрибуты клиента, данные о оплате клиента, данные о проживании
+сотрудника, данные проектах сотрудниках, данные о проектах клиента,
+данные о задачах в проекте."
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Основной сервер
+tags:
+  - name: client
+    description: Клиенты
+  - name: address
+    description: Адреса клиентов
+  - name: departments
+    description: Отделы
+  - name: еmployee
+    description: Сотрудники
+  - name : employeeproject
+    description: Проекты сотрудников
+  - name : payment
+    description: Оплата клиентов
+  - name : project
+    description: Проекты
+  - name : projectclient
+    description: Проекты клиентов
+  - name : task
+    description: Задачи проектов
+
+paths:
+  /adr/Address:
+    get:
+      tags:
+      - address
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/adr'
+    post:
+      tags:
+      - address
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/adr'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/adr'
+
+  /adr/Address/{id}:
+    get:
+      tags:
+      - address
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/adr'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - address
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/adr'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/adr'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - address
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+          
+  /clt/Client:
+    get:
+      tags:
+      - client
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/clt'
+    post:
+      tags:
+      - client
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/clt'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clt'
+
+  /clt/Client/{id}:
+    get:
+      tags:
+      - client
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clt'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - client
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/clt'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clt'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - client
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+
+  /dep/Departments:
+    get:
+      tags:
+      - departments
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dep'
+    post:
+      tags:
+      - departments
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dep'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dep'
+
+  /adr/Departments/{id}:
+    get:
+      tags:
+      - departments
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dep'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - departments
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dep'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dep'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - departments
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+          
+
+  /emp/Employee:
+    get:
+      tags:
+      - еmployee
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/emp'
+    post:
+      tags:
+      - еmployee
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emp'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/emp'
+
+  /emp/Employee/{id}:
+    get:
+      tags:
+      - еmployee
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/emp'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - еmployee
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emp'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/emp'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - еmployee
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+  
+  /emppro/EmployeeProject:
+    get:
+      tags:
+      - employeeproject
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/emppro'
+    post:
+      tags:
+      - employeeproject
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emppro'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/emppro'
+
+  /emppro/EmployeeProject/{id}:
+    get:
+      tags:
+      - employeeproject
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/emppro'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - employeeproject
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emppro'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/emppro'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - employeeproject
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+          
+  /pay/Payment:
+    get:
+      tags:
+      - payment
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/pay'
+    post:
+      tags:
+      - payment
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pay'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pay'
+
+  /pay/Payment/{id}:
+    get:
+      tags:
+      - payment
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pay'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - payment
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pay'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pay'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - payment
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+          
+  /procln/ProjectClient:
+    get:
+      tags:
+      - projectclient
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/procln'
+    post:
+      tags:
+      - projectclient
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/procln'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/procln'
+
+  /procln/ProjectClient/{id}:
+    get:
+      tags:
+      - projectclient
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/procln'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - projectclient
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/procln'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/procln'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - projectclient
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+          
+  /pro/Project:
+    get:
+      tags:
+      - project
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/pro'
+    post:
+      tags:
+      - project
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pro'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pro'
+
+  /pro/Project/{id}:
+    get:
+      tags:
+      - project
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pro'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - project
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pro'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pro'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - project
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+          
+  /tsk/Task:
+    get:
+      tags:
+      - task
+      summary: Получить список всех
+      responses:
+        '200':
+          description: Список
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tsk'
+    post:
+      tags:
+      - task
+      summary: Добавить
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tsk'
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tsk'
+
+  /tsk/Task/{id}:
+    get:
+      tags:
+      - task
+      summary: Получить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tsk'
+        '404':
+          description: Не найдена
+    put:
+      tags:
+      - task
+      summary: Обновить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tsk'
+      responses:
+        '200':
+          description: Успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tsk'
+        '404':
+          description: Не найден
+    delete:
+      tags:
+      - task
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Успешно удален
+        '404':
+          description: Не найден
+
+components:
+  schemas:
+    adr:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор адреса
+        street:
+          type: string
+          description: Название улицы
+        city:
+          type: string
+          description: Описание задачи
+        
+      required:
+        - id
+        - street
+        - city
+        
+    clt:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор клиента
+        dateOfBirth:
+          type: string
+          description: Дата рождения
+        name:
+          type: string
+          description: Имя
+        status:
+          type: string
+          description: Пол
+          enum: [Male, Female]
+        
+      required:
+        - id
+        - dateOfBirth
+        - name
+        
+    dep:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор
+        name:
+          type: string
+          description: Имя
+        countEmployee:
+          type: integer
+          description: Количество сотрудников
+        
+      required:
+        - id
+        - name
+        - countEmployee
+        
+    emp:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор
+        name:
+          type: string
+          description: Имя
+        department:
+          type: integer
+          description: Департамент к которому привязан сотрудник
+        address:
+          type: integer
+          description: Адрес к которому привязан сотрудник
+          
+        
+      required:
+        - id
+        - name
+        - department
+        - address
+    
+    emppro:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор
+        employee:
+          type: integer
+          description: Сотрудники
+        project:
+          type: integer
+          description: Проект
+
+      required:
+        - id
+        - employee
+        - project
+        
+    pay:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор
+        money:
+          type: integer
+          description: Бюджет
+        client:
+          type: integer
+          description: Id Клиента
+
+      required:
+        - id
+        - money
+        - client
+        
+    procln:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор
+        project:
+          type: integer
+          description: Id проекта
+        client:
+          type: integer
+          description: Id Клиента
+        name:
+          type: string
+          description: Имя
+
+      required:
+        - id
+        - money
+        - client
+        - name
+        
+    pro:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор
+        deadLine:
+          type: integer
+          description: Дата сдачи проекта
+        name:
+          type: string
+          description: Название проекта
+
+      required:
+        - id
+        - deadLine
+        - name
+        
+    tsk:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор
+        description:
+          type: integer
+          description: Описание проекта
+        name:
+          type: string
+          description: Название проекта
+        project:
+          type: integer
+          description: Id проекта
+
+      required:
+        - id
+        - deadLine
+        - name
+        - project

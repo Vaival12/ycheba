@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE shop [
+        <!ELEMENT shop (product)*>
+        <!ELEMENT product (timer|productCount|conveyor)*>
+        <!ATTLIST product
+                count CDATA #REQUIRED>
+        <!ELEMENT timer (#PCDATA)>
+        <!ELEMENT productCount (#PCDATA)>
+        <!ELEMENT conveyor (equipmentTime|sectionSize|completeProduct)*>
+        <!ELEMENT equipmentTime (#PCDATA)>
+        <!ELEMENT sectionSize (#PCDATA)>
+        <!ELEMENT completeProduct (count|cost)*>
+        <!ELEMENT count (#PCDATA)>
+        <!ELEMENT cost (#PCDATA)>
+        ]>
+<shop>
+
+    <product count="1">
+
+        <timer>5.5</timer>
+        <productCount>5</productCount>
+        <conveyor>
+            <equipmentTime>10</equipmentTime>
+            <sectionSize>10</sectionSize>
+            <completeProduct>
+                <count>0</count>
+                <cost>100</cost>
+            </completeProduct>
+        </conveyor>
+
+    </product>
+
+    <product count="2">
+
+        <timer>23.5</timer>
+        <productCount>20</productCount>
+        <conveyor>
+            <equipmentTime>10</equipmentTime>
+            <sectionSize>10</sectionSize>
+            <completeProduct>
+                <count>0</count>
+                <cost>100</cost>
+            </completeProduct>
+        </conveyor>
+
+    </product>
+
+</shop>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/data/jpa
+       https://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+       http://www.springframework.org/schema/tx
+       https://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+        <jpa:repositories base-package="com.university.domain"
+                          entity-manager-factory-ref="emf"
+                          transaction-manager-ref="txManager"/>
+
+
+        <context:component-scan base-package="com.university"/>
+
+        <tx:annotation-driven transaction-manager="txManager"/>
+
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+                <property name="driverClassName" >
+                        <value>org.postgresql.Driver</value>
+                </property>
+                <property name="url" value="jdbc:postgresql://localhost:5432/university"/>
+                <property name="username" >
+                        <value>root</value>
+                </property>
+                <property name="password" >
+                        <value>123456</value>
+                </property>
+        </bean>
+        <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+                <property name="dataSource" ref="dataSource"/>
+                <property name="packagesToScan">
+                        <list>
+                                <value></value>
+                        </list>
+                </property>
+                <property name="jpaVendorAdapter">
+                        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+                </property>
+                <property name="jpaProperties">
+                        <props>
+                                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                                <prop key="hibernate.show_sql">true</prop>
+                                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                        </props>
+                </property>
+        </bean>
+        <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+                <property name="entityManagerFactory" ref="emf"/>
+        </bean>
+</beans>
